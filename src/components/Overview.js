@@ -7,9 +7,9 @@ const Overview = (props) => {
 
   return (
     <ul>
-      {tasks.map((task) => { //.map guide https://www.youtube.com/watch?v=5llXA0RTYIU
+      {tasks.map((task) => ( //.map guide https://www.youtube.com/watch?v=5llXA0RTYIU
         <Task id={task.id} text={task.text}/>
-      })}
+      ))}
     </ul>
   );
 };
