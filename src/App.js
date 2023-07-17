@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import uniqid from "uniqid";
+import Overview from "./components/Overview";
 
 //class component
 class App extends Component {
@@ -6,7 +8,10 @@ class App extends Component {
     super();
 
     this.state = {
-      task: { text: ''},
+      task: { 
+        text: '',
+        id: uniqid()
+    },
       tasks: [],
     };
   }
@@ -15,15 +20,16 @@ class App extends Component {
     this.setState({
       task : {
         text: e.target.value,
+        id: this.state.task.id,
       }
     });
   };
   
   onSubmitTask = (e) => {
-    e.preventDefault();
+    e.preventDefault(); //if removed, the submit form will refresh the page and wipe out the task list
     this.setState({
       tasks: this.state.tasks.concat(this.state.task),
-      task: { text: '' },
+      task: { text: '', id: uniqid()},
     });
   };
 
@@ -34,11 +40,17 @@ class App extends Component {
       <div>
         <form onSubmit={this.onSubmitTask}>
           <label htmlFor="taskInput">Enter task</label>
-          <input type="text" id="taskInput" value={task.text} onChange={this.handleChange}/>
+          <input
+            onChange={this.handleChange}
+            value={task.text}
+            type="text"
+            id="taskInput"
+          />
           <button type="submit">
             Add Task
           </button>
         </form>
+        <Overview tasks={tasks} />
       </div>
     );
   }
